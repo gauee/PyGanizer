@@ -1,0 +1,30 @@
+<h2>{{ state }}</h2>
+<form method="POST" action="/registration/">
+	{% csrf_token %}
+
+<table>
+<tr>
+    <td>Username:</td>
+    <td><input type="text" name="username" value="{{ username }}"/> </td>
+</tr>
+<tr>
+    <td>Imie:</td>
+    <td><input type="text" name="name" /> </td>
+</tr>
+<tr>
+    <td>Nazwisko:</td>
+    <td><input type="text" name="surname"/> </td>
+</tr>
+<tr>
+    <td>E-mail:</td>
+    <td><input type="email" name="email" value="" /></td>
+</tr>
+<tr>
+    <td>Password:</td>
+    <td><input type="password" name="password" value="{{password}}" /></td>
+</tr>
+</table>
+
+<input type="submit" value="Registrate" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>

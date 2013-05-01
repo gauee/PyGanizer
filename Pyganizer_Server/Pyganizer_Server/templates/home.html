@@ -1,0 +1,18 @@
+<html>
+	<head>
+		Pyganizer 1.0
+	</head>
+	<body>
+		<p>
+			Siemka!
+			{{state}}
+		</p>
+		<p>
+			{% if user.is_authenticated %}
+				{% include "loged.html"%}
+			{% else %}
+				{% include "to_log.html" %}
+			{% endif %}
+		</p>
+	</body>
+</html>

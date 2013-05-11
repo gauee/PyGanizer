@@ -1,0 +1,42 @@
+[
+	{
+		"model"	: 	"user_management.UserPyganizerLabel",
+		"pk"	:	1,
+		"fields":	{
+			"label"		:	"Login",
+			"orderId"	:	"1"
+		}
+	},
+    {
+    	"model"	: 	"user_management.UserPyganizerLabel",
+    	"pk"	:	2,
+    	"fields":	{
+    		"label"		:	"Imię",
+    		"orderId"	:	"2"
+    	}
+    },
+    {
+    	"model"	: 	"user_management.UserPyganizerLabel",
+    	"pk"	:	3,
+    	"fields":	{
+    		"label"		:	"Nazwisko",
+    		"orderId"	:	"3"
+    	}
+    },
+    {
+    	"model"	: 	"user_management.UserPyganizerLabel",
+    	"pk"	:	4,
+    	"fields":	{
+    		"label"		:	"E-mail",
+    		"orderId"	:	"4"
+    	}
+    },
+    {
+    	"model"	: 	"user_management.UserPyganizerLabel",
+    	"pk"	:	5,
+    	"fields":	{
+    		"label"		:	"Opis",
+    		"orderId"	:	"5"
+    	}
+    }
+]

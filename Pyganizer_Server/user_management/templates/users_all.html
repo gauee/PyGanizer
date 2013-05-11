@@ -1,14 +1,24 @@
 <table>
 	{% for user in users %}
 	<tr>
-	<tr>
-		<td>User:</td>
-		<td>{{user.username}}</td>
+		<td>{{label.0}}:</td>
+		<td>{{user.userAuth.username}}</td>
 	</tr>
 	<tr>
-		<td>Email</td>
-		<td>{{user.email}}</td>
+		<td>{{label.1}}:</td>
+		<td>{{user.userAuth.first_name}}</td>
 	</tr>
+	<tr>
+		<td>{{label.2}}:</td>
+		<td>{{user.userAuth.last_name}}</td>
+	</tr>
+	<tr>
+		<td>{{label.3}}:</td>
+		<td>{{user.userAuth.email}}</td>
+	</tr>
+	<tr>
+		<td>{{label.4}}:</td>
+		<td>{{user.extraInfo}}</td>
 	</tr>
 	{% endfor %}
 </table>

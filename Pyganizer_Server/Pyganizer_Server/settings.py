@@ -1,5 +1,6 @@
 # Django settings for Pyganizer_Server project.
 import os
+from django.conf.global_settings import FIXTURE_DIRS
 
 
 DEBUG = True
@@ -126,11 +127,10 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
+    # Uncomment the next line to enables the admin:
     'django.contrib.admin',
     'pyganizer_calendar',
     'pyganizer_board',
-    #'users',
     'user_management',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
@@ -166,3 +166,7 @@ LOGGING = {
 }
 
 AUTH_PROFILE_MODULE = 'user_management.UserPyganizer'
+
+FIXTURE_DIRS = {
+    'user_management/fixtures/'
+}

@@ -1,0 +1,17 @@
+<form method="POST" action="/insert_label/">
+	{% csrf_token %}
+
+<table>
+<tr>
+    <td>Username:</td>
+    <td><input type="text" name="label" /> </td>
+</tr>
+<tr>
+    <td>Imie:</td>
+    <td><input type="number" name="order" value="1" /> </td>
+</tr>
+</table>
+
+<input type="submit" value="Insert Label" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>

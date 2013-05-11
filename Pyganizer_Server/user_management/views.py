@@ -83,15 +83,19 @@ def insert_label(request):
 
 
 def show_friends(request):
-    user = request.user.profile
+    user = request.user.profile    
+    
     #print(user.friends.all())
-    for f in user.friends.all():
-        print(f.userAuth.username)
+    friends = user.friends.all()
+    return render_to_response('show_friends.html',{'friends':friends},RequestContext(request))
     return redirect("/")
 
 
 def add_friend(request):
-    users = UserPyGanizer.objects.exclude(userAuth = request.user.profile.userAuth)
+    friends = list(request.user.profile.friends.all())
+    friends.append(request.user.profile)
+    users = UserPyGanizer.objects.exclude(userAuth__in=[o.userAuth for o in friends])
+    
     return render_to_response('add_friend.html',{'users':users},RequestContext(request))
     #myFriends = Friends.objects.
 

@@ -1,18 +1,17 @@
 <html>
 	<head>
-		Pyganizer 1.0
+		<title>{% block title %} PyGanizer - swobodna organizacja planów {% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
 	</head>
 	<body>
-		<p>
-			Siemka!
-			{{state}}
-		</p>
-		<p>
-			{% if user.is_authenticated %}
-				{% include "loged.html"%}
-			{% else %}
-				{% include "to_log.html" %}
-			{% endif %}
-		</p>
+		<nav>
+			<a href="/">Strona Główna</a>
+		</nav>
+		
+		{% block body %}Witaj, w aplikacji {% endblock %}
+		
+		<footer>
+			&copy; Copyright  by PyGanizerTeam
+		</footer>
 	</body>
 </html>

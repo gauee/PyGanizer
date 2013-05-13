@@ -16,6 +16,13 @@ urlpatterns = patterns('',
     url(r'^show_friends/$','user_management.views.show_friends',name='show_friends'),
     url(r'^add_user_to_friend/$','user_management.views.add_user_to_friend',name='add_user_to_friend'),
     url(r'^add_message/$','message_management.views.add_message',name='add_message'),
+    url(r'^add_event/$','message_management.views.add_event',name='add_event'),
+    url(r'^send_msg_to_friend_form/$','message_management.views.send_msg_to_friend_form',name='send_msg_to_friend_form'),
+    url(r'^send_msg_to_friend/$','message_management.views.send_msg_to_friend',name='send_msg_to_friend'),
+    url(r'^show_my_messages/$','message_management.views.show_my_messages',name='show_my_messages'),
+    url(r'^add_sticky_note/$','message_management.views.add_sticky_note',name='add_sticky_note'),
+    url(r'^add_sticky_note_form/$','message_management.views.add_sticky_note_form',name='add_sticky_note_form'),
+    
     url(r'^insert_label/$','user_management.views.insert_label',name='insert_label'),
     # url(r'^Pyganizer_Server/', include('Pyganizer_Server.foo.urls')),
 

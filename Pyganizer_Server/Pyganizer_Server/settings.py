@@ -114,7 +114,8 @@ PWD=os.path.dirname(os.path.realpath(__file__))
 
 TEMPLATE_DIRS = (
     os.path.join(PWD,"templates"),
-    os.path.join(PWD,"../user_management/templates")
+    os.path.join(PWD,"../user_management/templates"),
+    os.path.join(PWD,"../message_management/templates"),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -132,6 +133,7 @@ INSTALLED_APPS = (
     'pyganizer_calendar',
     'pyganizer_board',
     'user_management',
+    'message_management',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

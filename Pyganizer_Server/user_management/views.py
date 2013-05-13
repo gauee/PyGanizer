@@ -112,4 +112,3 @@ def add_user_to_friend(request):
         
     return redirect("/")
         
-        

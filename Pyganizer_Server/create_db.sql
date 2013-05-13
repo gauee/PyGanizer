@@ -1,2 +1,2 @@
-drop database pyganizerdb;
+DROP DATABASE IF EXISTS pyganizerdb;
 CREATE DATABASE pyganizerdb CHARACTER SET utf8;

@@ -12,9 +12,21 @@ class UserPyGanizer(models.Model):
     friends = models.ManyToManyField('UserPyGanizer')
     
     def __unicode__(self):
-        return self.userAuth.name
+        return self.userAuth.username
     
-    class Meta:
-        ordering = ('')
-
+    
+class UserFasade(models.Manager):
+    def get_user_friends(self,user):
+        friends = list(user.profile.friends.all())
+        print('friends ')
+        print(friends)
+        return friends
+ 
+    def get_user_pyganizer_by_username(self,username):
+        user = UserPyGanizer.objects.get(userAuth__username='gauee')
+        return user
+    
+class UserFasadeInstance(models.Model):
+    objects = UserFasade()
+    
 

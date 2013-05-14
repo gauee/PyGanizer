@@ -4,14 +4,26 @@
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
 	</head>
 	<body>
-		<nav>
-			<a href="/">Strona Główna</a>
-		</nav>
+		<div id="container">
+			<header>
+				PyGanizer
+			</header>
+			<nav>
+				<ul>
+				<li><a href="/">Strona Główna</a></li>|
+				<li><a href="/">Kalendarz</a></li>|
+				<li><a href="/">Tablica</a></li>
+				</ul>
+			</nav>
+			<div id="main_container">
+			{% include "calendar.html" %}
+			
+			{% include "todo_board.html" %}
+			</div>
+		</div>
+			<footer>
+				&copy; Copyright  by PyGanizerTeam
+			</footer>
 		
-		{% block body %}Witaj, w aplikacji {% endblock %}
-		
-		<footer>
-			&copy; Copyright  by PyGanizerTeam
-		</footer>
 	</body>
 </html>

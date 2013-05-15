@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>{% block title %} PyGanizer - swobodna organizacja planów {% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="{{ STATIC_URL }}jQuery/onClickMainContainerResize.js"></script>
+		<script src="{{ STATIC_URL }}jQuery/context_info.js"></script>
+	</head>
+	<body>
+
+		<div id="container">
+			<header>
+				PyGanizer
+			</header>
+			<div id="context_info">
+				Kontekst: {{ context_info }}
+			</div>
+
+			{% if user.is_authenticated %}
+			{% include "navigation.html" %}
+			{% endif%}
+
+			{% block container %}
+			{% endblock %}
+		</div>
+		<footer>
+			&copy; Copyright  by PyGanizerTeam
+		</footer>
+
+	</body>
+</html>

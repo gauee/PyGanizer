@@ -1,4 +1,5 @@
 # Create your views here.
+# -*- coding: utf-8 -*-
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render, render_to_response, redirect
@@ -7,10 +8,12 @@ from django.contrib.auth.models import User
 from user_management.models import UserPyGanizerLabel, UserPyGanizer
 
 def login_user(request):
-    state = "Please log in below...."
-    username = 'admin'
-    password = 'admin'
+    state = "Zaloguj się do aplikacji"
+    
     if request.POST:
+        if 'register' in request.POST:
+            return redirect("/registration")
+        
         username = request.POST.get('username')
         password = request.POST.get('password')
         
@@ -20,19 +23,20 @@ def login_user(request):
                 login(request,user)
                 return redirect('/')
             else:
-                state = "Your account is not active, please contact the site"
+                state = "Twoje konto jest nieaktywne, skontaktuj się z administratorem"
         else:
-            state = "Your username and/or password were incorrect."
+            state = "Login lub hasło jest niepoprawne"
             
     
     
-    return render_to_response('login.html',{'state':state,'username':username,'password':password},RequestContext(request))
+    return render_to_response('login.html',{'state':state}, RequestContext(request))
 
 def registration_user(request):
-    state = "Please registrate there"
-    username = 'gauee'
-    password = 'pass'
+    state = "Zarejestruj się"
     if request.POST:
+        if 'goToLogin' in request.POST:
+            return redirect("/login")
+        
         username = request.POST.get('username')
         name = request.POST.get('name')
         surname = request.POST.get('surname')
@@ -40,22 +44,26 @@ def registration_user(request):
         email = request.POST.get('email')
         desc =request.POST.get('desc')
         
-        user = User.objects.create_user(username, email, password)
-        user.first_name = name
-        user.last_name = surname
-        user.save()
-        userPyganizer = UserPyGanizer()
-        userPyganizer.extraInfo = desc
-        userPyganizer.userAuth = user
-        userPyganizer.save()
-        user = authenticate(username=username,password=password)
-        login(request,user)
+        try:
+            validLogin = User.objects.get(username = username)
+            if validLogin:
+                state = "Użytkownik o podanym loginie już istnieje"
+                return render_to_response('registration.html',{'state':state},RequestContext(request))
+        except User.DoesNotExist:
+            user = User.objects.create_user(username, email, password)
+            user.first_name = name
+            user.last_name = surname
+            user.save()
+            userPyganizer = UserPyGanizer()
+            userPyganizer.extraInfo = desc
+            userPyganizer.userAuth = user
+            userPyganizer.save()
+            user = authenticate(username=username,password=password)
+            login(request,user)
+            context_info = "Witaj w aplikacji PyGanizer"
+            return redirect('/')
         
-        
-        return redirect('/')
-        
-        
-    return render_to_response('registration.html',{'state':state,'username':username,'password':password},RequestContext(request))
+    return render_to_response('registration.html',{'state':state},RequestContext(request))
 
 def logout_user(request):
     logout(request)
@@ -109,6 +117,7 @@ def add_user_to_friend(request):
 
     user.friends.add(friendToAdd)
     friendToAdd.friends.add(user)
-        
-    return redirect("/")
+    context_info = "Dodano użytkownika " + friendToAdd.profile.userAuth.username + " do znajomych."
+    
+    return redirect("/show_friends",{'context_info':context_info})
         

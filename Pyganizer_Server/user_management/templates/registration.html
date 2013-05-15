@@ -1,34 +1,41 @@
-<h2>{{ state }}</h2>
-<form method="POST" action="/registration/">
-	{% csrf_token %}
+{% extends "skeletonSite.html" %}
 
-<table>
-<tr>
-    <td>Username:</td>
-    <td><input type="text" name="username" value="gauee"/> </td>
-</tr>
-<tr>
-    <td>Imie:</td>
-    <td><input type="text" name="name" value="gauee"/> </td>
-</tr>
-<tr>
-    <td>Nazwisko:</td>
-    <td><input type="text" name="surname" value="gauee"/> </td>
-</tr>
-<tr>
-    <td>E-mail:</td>
-    <td><input type="email" name="email" /></td>
-</tr>
-<tr>
-    <td>Password:</td>
-    <td><input type="password" name="password" value="gauee" /></td>
-</tr>
-<tr>
-    <td>Opis:</td>
-    <td><input type="text" name="desc" value="gauee" /></td>
-</tr>
-</table>
-
-<input type="submit" value="Registrate" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
+{% block container %}
+<div id="login">
+	<h2>{{ state }}</h2>
+	<form method="POST" action="/registration/">
+		{% csrf_token %}
+	
+		<table>
+			<tr>
+			    <td>Login:</td>
+			    <td><input type="text" name="username"/> </td>
+			</tr>
+			<tr>
+			    <td>Imię:</td>
+			    <td><input type="text" name="name"/> </td>
+			</tr>
+			<tr>
+			    <td>Nazwisko:</td>
+			    <td><input type="text" name="surname"/> </td>
+			</tr>
+			<tr>
+			    <td>E-mail:</td>
+			    <td><input type="email" name="email" /></td>
+			</tr>
+			<tr>
+			    <td>Hasło:</td>
+			    <td><input type="password" name="password" /></td>
+			</tr>
+			<tr>
+			    <td>Opis:</td>
+			    <td><input type="text" name="desc" /></td>
+			</tr>
+		</table>
+	
+	<input type="submit" value="Zarejestruj" />
+	<input type="submit" name="goToLogin" value="Przejdz do logowania" />
+	<!-- <input type="hidden" name="next" value="{{ next }}" /> -->
+	</form>
+</div>
+{% endblock %}

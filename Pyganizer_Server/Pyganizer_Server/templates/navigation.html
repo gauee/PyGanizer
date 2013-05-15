@@ -1,0 +1,20 @@
+<nav>
+	<div id="navLeft" onload="showCalendar()">
+		<ul>
+			<li>
+				<a href="/">Strona Główna</a>
+			</li>
+			|
+			<li>
+				<a onclick="showCalendar()">Kalendarz</a>
+			</li>
+			|
+			<li>
+				<a onclick="showToDoBoard()">Tablica</a>
+			</li>
+		</ul>
+	</div>
+	<div id="navRight">
+		{% include "loged.html" %}
+	</div>
+</nav>

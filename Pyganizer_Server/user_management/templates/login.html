@@ -1,17 +1,23 @@
-<h2>{{ state }}</h2>
-<form method="POST" action="/login/">
-	{% csrf_token %}
-<table>
-<tr>
-    <td>Username:</td>
-    <td><input type="text" name="username" value="{{ username }}"/> </td>
-</tr>
-<tr>
-    <td>Password:</td>
-    <td><input type="password" name="password" value="{{password}}" /></td>
-</tr>
-</table>
+{% extends "skeletonSite.html" %}
 
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
+{% block container %}
+<div id="login">
+	<h3>{{ state }}</h3>
+	<form method="POST" action="/login/">
+		{% csrf_token %}
+	<table>
+	<tr>
+	    <td>Login:</td>
+	    <td><input type="text" name="username"/> </td>
+	</tr>
+	<tr>
+	    <td>Hasło:</td>
+	    <td><input type="password" name="password" /></td>
+	</tr>
+	</table>
+	
+	<input type="submit" name="logIn" value="Zaloguj" />
+	<input type="submit" name="register" value="Zarejestruj" />
+	</form>
+</div>
+{% endblock %}

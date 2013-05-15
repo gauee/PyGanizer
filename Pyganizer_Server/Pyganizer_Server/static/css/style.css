@@ -1,39 +1,39 @@
 /*
-   style.css
-   PyGanizer
-   
-   Created by gauee on 2013-05-14.
-   Copyright 2013 gauee. All rights reserved.
-*/
+ style.css
+ PyGanizer
 
-html{
+ Created by gauee on 2013-05-14.
+ Copyright 2013 gauee. All rights reserved.
+ */
+
+html {
 	background-color: #ffffff;
 }
 
 body {
 	background-color: transparent;
 	/*width: 1300px;
-	height: 600px;*/
+	 height: 600px;*/
 	position: relative;
 }
 
-#container{
+#container {
 	width: 1300px;
 	height: 600px;
 	margin: auto;
 	position: relative;
 }
 
-header{
+header {
 	background-color: transparent;
 	width: 1300px;
 	height: 50px;
 	position: absolute;
-	left:0px;
-	font-size: 40px;	
+	left: 0px;
+	font-size: 40px;
 }
 
-nav{
+nav {
 	background-color: transparent;
 	width: 1300px;
 	height: 30px;	position: absolute;
@@ -42,16 +42,33 @@ nav{
 	color: #00;
 }
 
+#navLeft {
+	background-color: transparent;
+	width: 400px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+#navRight {
+	background-color: transparent;
+	width: 900px;
+	position: absolute;
+	left: 400px;
+	top: 0px;
+}
+
 nav a {
 	color: #000000;
 	text-decoration: none;
 }
 
-nav a:hover{
+nav a:hover {
 	text-decoration: underline;
+	cursor: pointer;
 }
 
-nav ul,nav ul li {
+nav ul, nav ul li {
 	display: block;
 	list-style: none;
 	margin: 0 10;
@@ -63,9 +80,7 @@ nav ul li {
 	white-space: nowrap;
 }
 
-
-
-footer{
+footer {
 	background-color: transparent;
 	width: 100%;
 	height: 15px;
@@ -76,45 +91,93 @@ footer{
 	text-align: center;
 	font-variant: small-caps;
 	padding: 10 0;
-	
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	box-shadow: 0 0 5px 5px #888;
 }
 
-#main_container{
+#main_container {
 	width: 1300px;
 	height: 400px;
-	top: 80px;
-	background-color: transparent;
+	top: 80px;	background-color: transparent;
 	position: absolute;
 }
 
-#calendar{
-	width: 400px;
-	height: 400px;
-	background-color: transparent;
+#calendar {
+	width: 300px;
+	height: 100px;
+	background-color: #fefd57;
+	background-image: url('../images/weekView.png');
+	background-position: center;
+	background-repeat: no-repeat;
 	position: absolute;
 	left: 20px;
-	display:inline;
-	
-	
+	display: inline;
 	border: 1px solid;
 	border-radius: 2px;
-	
 	box-shadow: 7px 7px 15px 1px #666;
-	
 }
 
-#todo_board{
-	width: 400px;
-	height: 400px;
+#calendar:hover {
+	cursor: pointer;
+}
+
+#todo_board {
+	width: 40px;
+	height: 40px;
 	background-color: transparent;
-	position: absolute;	display:inline;
-	left: 500px;
-	
+	background-image: url('../images/todoBoard.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;	display: inline;
+	left: 1100px;
 	border: 1px solid;
 	border-radius: 2px;
-	
+	box-shadow: 7px 7px 15px 1px #666;
+}
+
+#todo_board:hover {
+	cursor: pointer;
+}
+
+#login {
+	width: 260px;
+	/*height: 400px;*/
+	background-color: transparent;
+	position: absolute;
+	top: 100px;
+	left: 490px;
+	margin: auto auto;
+	display: inline;
+	padding: 20px;
+	border: 1px solid;
+	border-radius: 2px;
+	box-shadow: 7px 7px 15px 1px #666;
+}
+
+#user_info {
+	width: 600px;
+	height: 500px;
+	background-color: transparent;
+	position: absolute;
+	top: 80px;
+	left: 200px;
+	margin: auto auto;
+	display: inline;
+	padding: 20px;
+	border: 1px solid;
+	border-radius: 2px;
+	box-shadow: 7px 7px 15px 1px #666;
+}
+
+#context_info {
+	width: 500px;
+	height: 15px;
+	background-color: #74E463;
+	position: absolute;
+	top: 10px;
+	left: 300px;
+	padding: 8px;	border: 1px solid;
+	border-radius: 20px;
 	box-shadow: 7px 7px 15px 1px #666;
 }

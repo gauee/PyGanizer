@@ -1,29 +1,9 @@
-<html>
-	<head>
-		<title>{% block title %} PyGanizer - swobodna organizacja planów {% endblock %}</title>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
-	</head>
-	<body>
-		<div id="container">
-			<header>
-				PyGanizer
-			</header>
-			<nav>
-				<ul>
-				<li><a href="/">Strona Główna</a></li>|
-				<li><a href="/">Kalendarz</a></li>|
-				<li><a href="/">Tablica</a></li>
-				</ul>
-			</nav>
-			<div id="main_container">
-			{% include "calendar.html" %}
-			
-			{% include "todo_board.html" %}
-			</div>
-		</div>
-			<footer>
-				&copy; Copyright  by PyGanizerTeam
-			</footer>
-		
-	</body>
-</html>
+{% extends "skeletonSite.html" %}
+{% block container %}
+
+<div id="main_container">
+	{% include "calendar.html" %}
+
+	{% include "todo_board.html" %}
+</div>
+{% endblock %}

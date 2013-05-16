@@ -132,12 +132,14 @@ weekly_events = [
         id: 0,
         description: "0 Event",
         start: "1000",
-        stop: "1300"
+        stop: "1300",
+        edited: false
     }, {
         id: 1,
         description: "1 Event",
         start: "1300",
-        stop: "1415"
+        stop: "1415",
+        edited: false
     }
     ],
     /* WT */
@@ -162,23 +164,33 @@ var deleted_events = [];
 var added_or_edited_events = [];
 
 function save(){
-    var to_send = [];
+    // na backendzie potrzebne bedzie:
+    // opcja wstawienia nowego eventu (z to_SAVE) LUB aktualizacji, jeżeli takie event.id już jest w bazie
+    // opcja usuniecia eventu z to_delete
+    // PROBLEM: najpierw user moze edytowac eventa (pojawi sie w to_save) a potem do usunie
+    // i pojawie sie w to_delete,
+    // wiec najpierw trzeba przeiterowac po to_save, potem to_delete
+    var to_save = [];
     for(var day in weekly_events){
         for(var event in weekly_events[day]){
             if(weekly_events[day][event].edited == true)
             {
-                to_send.push(weekly_events[day][event]);
+                to_save.push(weekly_events[day][event]);
             }
         }
     }
-    if(to_send.length == 0 && deleted_events.length == 0){
+    if(to_save.length == 0 && deleted_events.length == 0){
         alert("Wszystko zapisano!");
         return;
     }
+    console.log("DODAJE: ");
+    console.log(to_save);
+    console.log("USUWAM: ");
+    console.log(deleted_events);
     // ajax z jquery, ale trzeba to bedzie przerobic na jakas biblioteke dla django
-
+    /*
     $.post("adres_strony",
-            {to_save: to_send,
+            {to_save: to_save,
             to_delete: deleted_events},
             function(response){
                 alert("Odpowiedz z serwera:" + response);
@@ -196,6 +208,7 @@ function save(){
                 }
             }
     )
+    */
 }
 
 $("#new_event").draggable();
@@ -301,7 +314,7 @@ $("#add_event").click(function () {
         {
             del(to_del, true); // usuwamy stare wydarzenie
             event.id = to_del;
-            event.edited = false;
+            event.edited = true;
             add_event("#day" + day, event); // dodajemy nowe
             $("#to_del_in_case_of_edit").val("nothing");
         } else { // jezeli to nie byl edit, czyli po prostu chcemy dodac nowe wydarzenie
@@ -415,6 +428,7 @@ function make_events_awesome(event_id) {
                                 console.log("znalazlem");
                                 weekly_events[day][event].start = start.replace(":", "");
                                 weekly_events[day][event].stop = stop.replace(":", "");
+                                weekly_events[day][event].edited = true;
                                 weekly_events[destination].push(weekly_events[day][event]);
                                 weekly_events[day].splice(event, 1);
                                 source = parseInt(day);
@@ -450,7 +464,7 @@ function make_events_awesome(event_id) {
         if (to_edit == 0) return;
         $("#delete_event").removeAttr("hidden");
         $("#cancel").removeAttr("hidden");
-        $("#delete_event").click(function(){del(to_edit['id'])});
+        $("#delete_event").click(function(){del(to_edit['id'], false)});
         show_form();
         console.log(to_edit);
         $("#start").val(to_edit['start'].replace(":", ""));
@@ -476,7 +490,8 @@ function del(id, del_to_edit){
                 console.log("USUWAM " + event);
                 console.log(weekly_events);
                 if(del_to_edit == false){ // jezeli go usuwamy to przerzucamy do zapasowej tabeli
-                    deleted_events.push(events[day][event]);
+                    alert("przerzucam");
+                    deleted_events.push(weekly_events[day][event]);
                 }
                 weekly_events[day].splice(event, 1);
                 console.log(weekly_events);

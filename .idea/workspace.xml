@@ -2,35 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd47cb42-18f4-4277-b452-6aaaeba580b5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/PyGanizer.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/other.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/testrunner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/bootstrap/css/bootstrap-responsive.css" afterPath="$PROJECT_DIR$/frontend/bootstrap/css/bootstrap-responsive.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/bootstrap/css/bootstrap-responsive.min.css" afterPath="$PROJECT_DIR$/frontend/bootstrap/css/bootstrap-responsive.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/bootstrap/css/bootstrap.css" afterPath="$PROJECT_DIR$/frontend/bootstrap/css/bootstrap.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/bootstrap/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/frontend/bootstrap/css/bootstrap.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/bootstrap/img/glyphicons-halflings-white.png" afterPath="$PROJECT_DIR$/frontend/bootstrap/img/glyphicons-halflings-white.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/bootstrap/img/glyphicons-halflings.png" afterPath="$PROJECT_DIR$/frontend/bootstrap/img/glyphicons-halflings.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/bootstrap/js/bootstrap.js" afterPath="$PROJECT_DIR$/frontend/bootstrap/js/bootstrap.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/bootstrap/js/bootstrap.min.js" afterPath="$PROJECT_DIR$/frontend/bootstrap/js/bootstrap.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/bootstrap/js/html5shiv.js" afterPath="$PROJECT_DIR$/frontend/bootstrap/js/html5shiv.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/calendar.html" afterPath="$PROJECT_DIR$/frontend/calendar.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/index.html" afterPath="$PROJECT_DIR$/frontend/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/monthly.js" afterPath="$PROJECT_DIR$/frontend/monthly.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/style.css" afterPath="$PROJECT_DIR$/frontend/style.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/todo" afterPath="$PROJECT_DIR$/frontend/todo" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/wall.html" afterPath="$PROJECT_DIR$/frontend/wall.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fontend/weekly.js" afterPath="$PROJECT_DIR$/frontend/weekly.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/calendar.html" afterPath="$PROJECT_DIR$/frontend/calendar.html" />
     </list>
     <ignored path="PyGanizer.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="dd47cb42-18f4-4277-b452-6aaaeba580b5" time="1368694392023" ignored="false" />
-    <file path="/calendar.html" changelist="dd47cb42-18f4-4277-b452-6aaaeba580b5" time="1368694742118" ignored="false" />
+    <file path="/calendar.html" changelist="dd47cb42-18f4-4277-b452-6aaaeba580b5" time="1368695518591" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +27,7 @@
       <file leaf-file-name="calendar.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend/calendar.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="184" column="21" selection-start="5918" selection-end="5918" vertical-scroll-proportion="0.9468085">
+            <state line="190" column="6" selection-start="6260" selection-end="6260" vertical-scroll-proportion="0.554731">
               <folding />
             </state>
           </provider>
@@ -170,6 +147,13 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -262,7 +246,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/frontend/calendar.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="184" column="21" selection-start="5918" selection-end="5918" vertical-scroll-proportion="0.9468085">
+        <state line="190" column="6" selection-start="6260" selection-end="6260" vertical-scroll-proportion="0.554731">
           <folding />
         </state>
       </provider>

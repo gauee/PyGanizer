@@ -248,7 +248,6 @@ $(document).ready(function () {
         allElements.push(info);
     });
 
-    console.log(allElements);
     insert_event_from_table(weekly_events);
 });
 
@@ -314,19 +313,19 @@ $("#add_event").click(function () {
         {
             del(to_del, true); // usuwamy stare wydarzenie
             event.id = to_del;
-            event.edited = true;
-            add_event("#day" + day, event); // dodajemy nowe
+            event.edited = false;
             $("#to_del_in_case_of_edit").val("nothing");
         } else { // jezeli to nie byl edit, czyli po prostu chcemy dodac nowe wydarzenie
             event.id = event_counter;
             event.edited = true;
-            add_event("#day" + day, event); // dodajemy nowe
             ++event_counter;
         }
+        add_event("#day" + day, event); // dodajemy nowe
+        event.start = event.start.replace(":", "");
+        event.stop = event.stop.replace(":", "");
         weekly_events[day].push(event);
 
         // sprawdzamy kolizje tam gdzie wstawiamy
-        console.log("SPRAWDZAM KOLIZJE PO WSTAWIENIU w "+ day);
         check_collisions(day);
         hide_form();
     }
@@ -345,16 +344,12 @@ $("table").mousemove(function (e) {
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 function prepare_date(d) {
-    console.log("prepare date " + d);
     if (d.length == 3) d = [d.slice(0, 1), ":", d.slice(1)].join('');
     else if (d.length == 4) d = [d.slice(0, 2), ":", d.slice(2)].join('');
-    console.log("zwracam "+d);
     return d;
 }
 
 function get_time(top) {
-    console.log(allElements);
-    console.log(top);
     // lame
     for (var elem in allElements) {
         if (top >= allElements[elem].top - 3 && top <= allElements[elem].top + 3) // && top <= allElements[elem].top + timediv_height)
@@ -364,12 +359,10 @@ function get_time(top) {
 }
 
 function get_day(left) {
-    console.log(left);
     var selector = "#day";
     for (var i = 0; i < 6; ++i) {
         var day_left = parseInt($(selector + i).position().left);
         var next_day_left = parseInt($(selector + (i + 1)).position().left);
-        console.log(day_left);
         if (left >= day_left && left <= next_day_left) // && top <= allElements[elem].top + timediv_height)
             return i;
     }
@@ -377,9 +370,7 @@ function get_day(left) {
 }
 
 function parseTime(t) {
-    //console.log("PARSETIME " + t);
     t = parseInt(t);
-    //console.log("RETURNS " + [parseInt(t / 100), t % 100]);
     return [parseInt(t / 100), t % 100];
 }
 
@@ -406,8 +397,6 @@ function make_events_awesome(event_id) {
                 ],
                 grid: [parseInt($("#day0").css("width")), 25],
                 stop: function (e, ui) {
-                    console.log(e);
-                    console.log(ui);
 
                     var t = parseInt(elem.css("top"));
                     var h = parseInt(elem.css("height"));
@@ -417,19 +406,17 @@ function make_events_awesome(event_id) {
                     var stop = prepare_date(get_time(parseInt(t) + parseInt(h)));
 
                     var destination = get_day(l + w / 2);
-                    console.log("DESTINATION : " + destination);
                     var source = 0;
                     var jest_git = false;
                     for (var day in weekly_events) {
-                        console.log("SPRAWDZAM " + day);
                         for (var event in weekly_events[day]) {
 
                             if (weekly_events[day][event].id == elem.attr('id')) {
-                                console.log("znalazlem");
                                 weekly_events[day][event].start = start.replace(":", "");
                                 weekly_events[day][event].stop = stop.replace(":", "");
                                 weekly_events[day][event].edited = true;
                                 weekly_events[destination].push(weekly_events[day][event]);
+
                                 weekly_events[day].splice(event, 1);
                                 source = parseInt(day);
                                 jest_git = true; // zeby wyjsc z zewnetrzej petli
@@ -443,18 +430,12 @@ function make_events_awesome(event_id) {
                     check_collisions(source);
                     check_collisions(destination);
                     $(this).children(".bar").html(start + " - " + stop);
-                    console.log("EVENTY: ");
-                    console.log(weekly_events);
                 }
             });
     elem.dblclick(function(){
-        console.log("edytuje " + elem.attr('id'));
         var to_edit = 0;
-        console.log(weekly_events);
         for (var day in weekly_events){
-            console.log("D " + day);
             for (var event in weekly_events[day]){
-                console.log("E " +event);
                 if (weekly_events[day][event]['id'] == elem.attr('id')){
                     to_edit = weekly_events[day][event];
                     to_edit['day'] = day;
@@ -466,7 +447,6 @@ function make_events_awesome(event_id) {
         $("#cancel").removeAttr("hidden");
         $("#delete_event").click(function(){del(to_edit['id'], false)});
         show_form();
-        console.log(to_edit);
         $("#start").val(to_edit['start'].replace(":", ""));
         $("#stop").val(to_edit['stop'].replace(":", ""));
         $("#description").val(to_edit['description']);
@@ -481,20 +461,14 @@ function make_events_awesome(event_id) {
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 function del(id, del_to_edit){
-    console.log(id);
-    console.log("usuwam "+id);
     var day_to_reorganize = -1;
     for (var day in weekly_events){
         for (event in weekly_events[day]){
             if (weekly_events[day][event]['id'] == id){
-                console.log("USUWAM " + event);
-                console.log(weekly_events);
                 if(del_to_edit == false){ // jezeli go usuwamy to przerzucamy do zapasowej tabeli
-                    alert("przerzucam");
                     deleted_events.push(weekly_events[day][event]);
                 }
                 weekly_events[day].splice(event, 1);
-                console.log(weekly_events);
                 day_to_reorganize = day;
 
                 break;
@@ -555,7 +529,11 @@ function add_event(day_selector, event) {
             .css("height", bottom - up)
             .css("width", $(day_selector).css("width"));
 
+    event.start = prepare_date(event.start).replace(":", "");
+    event.stop = prepare_date(event.stop).replace(":", "");
+
     make_events_awesome(event['id']);
+
 }
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -579,20 +557,15 @@ function insert_event_from_table() {
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 function get_collisions_list(day) {
-    console.log("Sprawdzam kolizje dla " + day);
     if (day in [0, 1, 2, 3, 4, 5, 6]) {
         var collisions = [];
         var list = weekly_events[day];
-        console.log("LISTA W GET COLLS LIST: "+list);
-        //console.log("mam " + list.length + " eventow");
         for (var event1 = 0; event1 < list.length; ++event1) {
             for (var event2 = event1 + 1; event2 < list.length; ++event2) {
-                //console.log("SPRAWDZAM" + event1 + " " + event2);
                 var e1start = parseInt(list[event1]['start']);
                 var e1stop = parseInt(list[event1]['stop']);
                 var e2start = parseInt(list[event2]['start']);
                 var e2stop = parseInt(list[event2]['stop']);
-                //console.log(e1start+ " "+ e1stop + " " + e2start + " " +e2stop);
                 var collision = false;
                 var col_start;
                 var col_stop;
@@ -613,24 +586,19 @@ function get_collisions_list(day) {
                     col_stop = e2stop;
                 }
                 if (collision) {
-                    console.log("Wykrylem kolizje o "+ col_start + "  " + col_stop);
                     collisions.push([event1, event2, parseTime(col_start), parseTime(col_stop)]);
                 }
             }
         }
         return collisions;
     } else {
-        console.log("Niepodano dnia");
+        return "nie"
     }
 }
 
 function check_collisions(day) {
     var collision_list = get_collisions_list(day);
-    console.log("LOGI Z CHECK_COLLISION");
-    console.log(day);
-    console.log(collision_list);
     var list = weekly_events[day];
-    console.log(list);
     var cols_no = 1;
     // liczymy na ile trzeba podzielic kolumne
     for (var event = 0; event < list.length; ++event) {
@@ -640,15 +608,12 @@ function check_collisions(day) {
         counter['default'] = 1;
         for (var iter = 0; iter < collision_list.length; ++iter) { // dla kazdej kolizji
             if (collision_list[iter][0] == event || collision_list[iter][1] == event) { // jezeli event bierze w niej udzial
-                //console.log("mam event");
                 var time_iter = new Array(parseInt(collision_list[iter][2][0]), parseInt(collision_list[iter][2][1]));
-                //console.log("time_iter " + time_iter);
                 while (time_iter[0] < collision_list[iter][3][0] || time_iter[1] < collision_list[iter][3][1]) {
                     if (counter[time_iter])
                         counter[time_iter]++;
                     else
                         counter[time_iter] = 2;
-                    //console.log("zwiekszam");
 
                     time_iter[1] += 15;
                     if (time_iter[1] == 60) {

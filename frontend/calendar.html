@@ -161,6 +161,43 @@ weekly_events = [
 var deleted_events = [];
 var added_or_edited_events = [];
 
+function save(){
+    var to_send = [];
+    for(var day in weekly_events){
+        for(var event in weekly_events[day]){
+            if(weekly_events[day][event].edited == true)
+            {
+                to_send.push(weekly_events[day][event]);
+            }
+        }
+    }
+    if(to_send.length == 0 && deleted_events.length == 0){
+        alert("Wszystko zapisano!");
+        return;
+    }
+    // ajax z jquery, ale trzeba to bedzie przerobic na jakas biblioteke dla django
+
+    $.post("adres_strony",
+            {to_save: to_send,
+            to_delete: deleted_events},
+            function(response){
+                alert("Odpowiedz z serwera:" + response);
+                if(response == "GIOCIOR KURWA!"){
+                    deleted_events = []
+                    for(var day in weekly_events){
+                        for(var event in weekly_events[day]){
+                            weekly_events[day][event].edited = false;
+                        }
+                    }
+                }
+                else
+                {
+                    alert("Cos nie poszlo dobrze");
+                }
+            }
+    )
+}
+
 $("#new_event").draggable();
 
 function show_form() {

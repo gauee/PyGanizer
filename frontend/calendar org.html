@@ -1,4 +1,61 @@
-<div id="calendar" class="container">
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+    </style>
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+</head>
+
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+            </button> <a class="brand" href="#">pyGanizer</a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li><a href="index.html">Home</a>
+                    </li>
+                    <li class="active"><a href="calendar org.html">Calendar</a>
+                    </li>
+                    <li><a href="wall.html">Wall</a>
+                    </li>
+                    <li id="display" style="color: white;"></li>
+                </ul>
+                <form class="navbar-form pull-right">
+                    <input class="span2" type="text" placeholder="Email">
+                    <input class="span2" type="password" placeholder="Password">
+                    <button type="submit" class="btn">Sign in</button>
+                </form>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container">
 <input type="button" value="Nowy event" onclick="show_form()">
 <input type="button" value="Zapisz" onclick="save()">
 <div id="new_event" hidden="hidden">
@@ -55,7 +112,11 @@
     </tr>
 </table>
 <table id="montly_calendar" hidden="hidden">asdgargher</table>
-
+<footer>
+    <p>&copy; 2013</p>
+</footer>
+<script src="weekly.js"></script>
+<script src="monthly.js"></script>
 <script>
 // RZECZY Z BACKENDU:
 //  tutaj bedzie SELECT MAX(id) FROM EVENTS;
@@ -102,7 +163,7 @@ weekly_events = [
 var deleted_events = [];
 var added_or_edited_events = [];
 
-function save() {
+function save(){
     // na backendzie potrzebne bedzie:
     // opcja wstawienia nowego eventu (z to_SAVE) LUB aktualizacji, jeżeli takie event.id już jest w bazie
     // opcja usuniecia eventu z to_delete
@@ -110,14 +171,15 @@ function save() {
     // i pojawie sie w to_delete,
     // wiec najpierw trzeba przeiterowac po to_save, potem to_delete
     var to_save = [];
-    for (var day in weekly_events) {
-        for (var event in weekly_events[day]) {
-            if (weekly_events[day][event].edited == true) {
+    for(var day in weekly_events){
+        for(var event in weekly_events[day]){
+            if(weekly_events[day][event].edited == true)
+            {
                 to_save.push(weekly_events[day][event]);
             }
         }
     }
-    if (to_save.length == 0 && deleted_events.length == 0) {
+    if(to_save.length == 0 && deleted_events.length == 0){
         alert("Wszystko zapisano!");
         return;
     }
@@ -127,26 +189,26 @@ function save() {
     console.log(deleted_events);
     // ajax z jquery, ale trzeba to bedzie przerobic na jakas biblioteke dla django
     /*
-     $.post("adres_strony",
-     {to_save: to_save,
-     to_delete: deleted_events},
-     function(response){
-     alert("Odpowiedz z serwera:" + response);
-     if(response == "GIOCIOR KURWA!"){
-     deleted_events = []
-     for(var day in weekly_events){
-     for(var event in weekly_events[day]){
-     weekly_events[day][event].edited = false;
-     }
-     }
-     }
-     else
-     {
-     alert("Cos nie poszlo dobrze");
-     }
-     }
-     )
-     */
+    $.post("adres_strony",
+            {to_save: to_save,
+            to_delete: deleted_events},
+            function(response){
+                alert("Odpowiedz z serwera:" + response);
+                if(response == "GIOCIOR KURWA!"){
+                    deleted_events = []
+                    for(var day in weekly_events){
+                        for(var event in weekly_events[day]){
+                            weekly_events[day][event].edited = false;
+                        }
+                    }
+                }
+                else
+                {
+                    alert("Cos nie poszlo dobrze");
+                }
+            }
+    )
+    */
 }
 
 $("#new_event").draggable();
@@ -209,8 +271,7 @@ function put_rows_to_weekly_calendar(start, stop) {
                     "<option value='" + time.replace(":", "") + "'>" + time + "</option>");
             $("#stop").append(
                     "<option value='" + time.replace(":", "") + "'>" + time + "</option>");
-            $("#time_column").append("<div class='time_div' id='" + time.replace(":", "") + "'>" + time +
-                    "</div>");
+            $("#time_column").append("<div class='time_div' id='" + time.replace(":", "") + "'>" + time + "</div>");
         }
     }
 }
@@ -282,7 +343,6 @@ $("table").mousemove(function (e) {
 ///////////////////////////     POMOCNICZE FUNKCJE      ////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-
 function prepare_date(d) {
     if (d.length == 3) d = [d.slice(0, 1), ":", d.slice(1)].join('');
     else if (d.length == 4) d = [d.slice(0, 2), ":", d.slice(2)].join('');
@@ -291,17 +351,11 @@ function prepare_date(d) {
 
 function get_time(top) {
     // lame
-    top += 90;
-    var tops = ""
-    console.log("SZUKAM " +top);
     for (var elem in allElements) {
-        tops += allElements[elem].top + " "
-        //console.log(allElements[elem].top);
         if (top >= allElements[elem].top - 3 && top <= allElements[elem].top + 3) // && top <= allElements[elem].top + timediv_height)
             return allElements[elem].id;
     }
-    console.log(tops);
-    return "1545";
+    return "nie ma takiego";
 }
 
 function get_day(left) {
@@ -330,73 +384,72 @@ function make_events_awesome(event_id) {
     var elem = $("#" + event_id);
 
     $("#" + event_id).resizable({
-        start: function (e, ui) {
+        start: function(e, ui) {
             alert('resizing started');
         },
-        resize: function (e, ui) {
+        resize: function(e, ui) {
 
         },
-        stop: function (e, ui) {
+        stop: function(e, ui) {
             alert('resizing stopped');
         },
         handles: 'n, s'
     });
-    elem.draggable({
-        snap: ".can_has_events",
-        snapMode: "inner",
-        snapTolerance: "20",
-        opacity: "0.8",
-        scroll: false,
-        // beka
-        containment: [$("#day0").parent().position().left + parseInt($("#time_column").css("width")),
-            $("#day0").parent().position().top+75,
-            $("#day0").parent().position().left + parseInt($("#day0").parent().css("width")) - parseInt($(
-                    "#day6").css("width")),
-            $("#day0").parent().position().top + parseInt($("#day0").parent().css("height")) - parseInt($(
-                    "#" + event_id).css("height"))+75
-        ],
-        grid: [parseInt($("#day0").css("width")), 25],
-        stop: function (e, ui) {
+    elem.draggable(
+            {
+                snap: ".can_has_events",
+                snapMode: "inner",
+                snapTolerance: "20",
+                opacity: "0.8",
+                scroll: false,
+                // beka
+                containment: [$("#day0").parent().position().left + parseInt($("#time_column").css("width")),
+                    $("#day0").parent().position().top,
+                    $("#day0").parent().position().left + parseInt($("#day0").parent().css("width")) - parseInt($("#day6").css("width")),
+                    $("#day0").parent().position().top + parseInt($("#day0").parent().css("height")) - parseInt($("#" + event_id).css("height"))
+                ],
+                grid: [parseInt($("#day0").css("width")), 25],
+                stop: function (e, ui) {
 
-            var t = parseInt(elem.css("top"));
-            var h = parseInt(elem.css("height"));
-            var l = parseInt(elem.css("left"));
-            var w = parseInt(elem.css("width"));
-            var start = prepare_date(get_time(t));
-            var stop = prepare_date(get_time(t + h));
-            console.log(start+ " " + stop);
-            var destination = get_day(l + w / 2);
-            var source = 0;
-            var jest_git = false;
-            for (var day in weekly_events) {
-                for (var event in weekly_events[day]) {
+                    var t = parseInt(elem.css("top"));
+                    var h = parseInt(elem.css("height"));
+                    var l = parseInt(elem.css("left"));
+                    var w = parseInt(elem.css("width"));
+                    var start = prepare_date(get_time(parseInt(t)));
+                    var stop = prepare_date(get_time(parseInt(t) + parseInt(h)));
 
-                    if (weekly_events[day][event].id == elem.attr('id')) {
-                        weekly_events[day][event].start = start.replace(":", "");
-                        weekly_events[day][event].stop = stop.replace(":", "");
-                        weekly_events[day][event].edited = true;
-                        weekly_events[destination].push(weekly_events[day][event]);
+                    var destination = get_day(l + w / 2);
+                    var source = 0;
+                    var jest_git = false;
+                    for (var day in weekly_events) {
+                        for (var event in weekly_events[day]) {
 
-                        weekly_events[day].splice(event, 1);
-                        source = parseInt(day);
-                        jest_git = true; // zeby wyjsc z zewnetrzej petli
-                        //takie goto
-                        break;
+                            if (weekly_events[day][event].id == elem.attr('id')) {
+                                weekly_events[day][event].start = start.replace(":", "");
+                                weekly_events[day][event].stop = stop.replace(":", "");
+                                weekly_events[day][event].edited = true;
+                                weekly_events[destination].push(weekly_events[day][event]);
+
+                                weekly_events[day].splice(event, 1);
+                                source = parseInt(day);
+                                jest_git = true; // zeby wyjsc z zewnetrzej petli
+                                //takie goto
+                                break;
+                            }
+                        }
+                        if (jest_git) break;
                     }
-                }
-                if (jest_git) break;
-            }
 
-            check_collisions(source);
-            check_collisions(destination);
-            $(this).children(".bar").html(start + " - " + stop);
-        }
-    });
-    elem.dblclick(function () {
+                    check_collisions(source);
+                    check_collisions(destination);
+                    $(this).children(".bar").html(start + " - " + stop);
+                }
+            });
+    elem.dblclick(function(){
         var to_edit = 0;
-        for (var day in weekly_events) {
-            for (var event in weekly_events[day]) {
-                if (weekly_events[day][event]['id'] == elem.attr('id')) {
+        for (var day in weekly_events){
+            for (var event in weekly_events[day]){
+                if (weekly_events[day][event]['id'] == elem.attr('id')){
                     to_edit = weekly_events[day][event];
                     to_edit['day'] = day;
                 }
@@ -405,9 +458,7 @@ function make_events_awesome(event_id) {
         if (to_edit == 0) return;
         $("#delete_event").removeAttr("hidden");
         $("#cancel").removeAttr("hidden");
-        $("#delete_event").click(function () {
-            del(to_edit['id'], false)
-        });
+        $("#delete_event").click(function(){del(to_edit['id'], false)});
         show_form();
         $("#start").val(to_edit['start'].replace(":", ""));
         $("#stop").val(to_edit['stop'].replace(":", ""));
@@ -419,16 +470,15 @@ function make_events_awesome(event_id) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////     USUWA EVENT           ////////////////////////////////////
+    ///////////////////////////     USUWA EVENT           ////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-
-function del(id, del_to_edit) {
+function del(id, del_to_edit){
     var day_to_reorganize = -1;
-    for (var day in weekly_events) {
-        for (event in weekly_events[day]) {
-            if (weekly_events[day][event]['id'] == id) {
-                if (del_to_edit == false) { // jezeli go usuwamy to przerzucamy do zapasowej tabeli
+    for (var day in weekly_events){
+        for (event in weekly_events[day]){
+            if (weekly_events[day][event]['id'] == id){
+                if(del_to_edit == false){ // jezeli go usuwamy to przerzucamy do zapasowej tabeli
                     deleted_events.push(weekly_events[day][event]);
                 }
                 weekly_events[day].splice(event, 1);
@@ -437,17 +487,16 @@ function del(id, del_to_edit) {
                 break;
             }
         }
-        if (day_to_reorganize != -1) // jezeli juz usunelismy to brakujemy zewnetrza petle
+        if(day_to_reorganize != -1) // jezeli juz usunelismy to brakujemy zewnetrza petle
             break;
     }
     hide_form();
-    $("#" + id).remove();
+    $("#"+id).remove();
     check_collisions(day_to_reorganize);
 }
 
 
 var allElements = [];
-
 function getBorders($elem) {
     $elem = $elem instanceof jQuery ? $elem.first() : $($elem);
     var offset = $elem.offset(); // Properties: top, left
@@ -572,9 +621,7 @@ function check_collisions(day) {
         counter['default'] = 1;
         for (var iter = 0; iter < collision_list.length; ++iter) { // dla kazdej kolizji
             if (collision_list[iter][0] == event || collision_list[iter][1] == event) { // jezeli event bierze w niej udzial
-                var time_iter = new Array(parseInt(collision_list[iter][2][0]), parseInt(collision_list[iter][2][
-                        1
-                        ]));
+                var time_iter = new Array(parseInt(collision_list[iter][2][0]), parseInt(collision_list[iter][2][1]));
                 while (time_iter[0] < collision_list[iter][3][0] || time_iter[1] < collision_list[iter][3][1]) {
                     if (counter[time_iter])
                         counter[time_iter]++;
@@ -605,8 +652,7 @@ function check_collisions(day) {
     for (var event1 = 0; event1 < list.length; ++event1) { // aktualny event
         for (var event2 = 0; event2 < event1; ++event2) { // poprzedni
             for (var collision = 0; collision < collision_list.length; ++collision) {
-                if ((collision_list[collision][0] == event1 && collision_list[collision][1] == event2) || (
-                        collision_list[collision][0] == event2 && collision_list[collision][1] == event1)) {
+                if ((collision_list[collision][0] == event1 && collision_list[collision][1] == event2) || (collision_list[collision][0] == event2 && collision_list[collision][1] == event1)) {
                     if (list[event1]['col'] === list[event2]['col']) // i sa w tej samej kolumnie
                     {
                         list[event1]['col']++;
@@ -620,5 +666,9 @@ function check_collisions(day) {
         e1.css("left", parseInt(day_position) + list[event1]['col'] * col_width);
     }
 }
+
 </script>
 </div>
+</body>
+
+</html>

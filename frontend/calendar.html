@@ -23,6 +23,9 @@
     <![endif]-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+
 </head>
 
 <body>
@@ -39,7 +42,7 @@
                 <ul class="nav">
                     <li><a href="index.html">Home</a>
                     </li>
-                    <li class="active"><a href="calendar.html">Calendar</a>
+                    <li class="active"><a href="calendar%20org.html">Calendar</a>
                     </li>
                     <li><a href="wall.html">Wall</a>
                     </li>
@@ -380,8 +383,44 @@ function parseTime(t) {
 ////////////////////////// i  po dblclicku mozna go edytowac ////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+function awesome_stop(e, ui, elem){
+    var t = parseInt(elem.css("top"));
+    var h = parseInt(elem.css("height"));
+    var l = parseInt(elem.css("left"));
+    var w = parseInt(elem.css("width"));
+    var start = prepare_date(get_time(parseInt(t)));
+    var stop = prepare_date(get_time(parseInt(t) + parseInt(h)));
+
+    var destination = get_day(l + w / 2);
+    var source = 0;
+    var jest_git = false;
+    for (var day in weekly_events) {
+        for (var event in weekly_events[day]) {
+
+            if (weekly_events[day][event].id == elem.attr('id')) {
+                weekly_events[day][event].start = start.replace(":", "");
+                weekly_events[day][event].stop = stop.replace(":", "");
+                weekly_events[day][event].edited = true;
+                weekly_events[destination].push(weekly_events[day][event]);
+
+                weekly_events[day].splice(event, 1);
+                source = parseInt(day);
+                jest_git = true; // zeby wyjsc z zewnetrzej petli
+                //takie goto
+                break;
+            }
+        }
+        if (jest_git) break;
+    }
+
+    check_collisions(source);
+    check_collisions(destination);
+    elem.children(".bar").html(start + " - " + stop);
+}
+
 function make_events_awesome(event_id) {
     var elem = $("#" + event_id);
+
     elem.draggable(
             {
                 snap: ".can_has_events",
@@ -397,39 +436,7 @@ function make_events_awesome(event_id) {
                 ],
                 grid: [parseInt($("#day0").css("width")), 25],
                 stop: function (e, ui) {
-
-                    var t = parseInt(elem.css("top"));
-                    var h = parseInt(elem.css("height"));
-                    var l = parseInt(elem.css("left"));
-                    var w = parseInt(elem.css("width"));
-                    var start = prepare_date(get_time(parseInt(t)));
-                    var stop = prepare_date(get_time(parseInt(t) + parseInt(h)));
-
-                    var destination = get_day(l + w / 2);
-                    var source = 0;
-                    var jest_git = false;
-                    for (var day in weekly_events) {
-                        for (var event in weekly_events[day]) {
-
-                            if (weekly_events[day][event].id == elem.attr('id')) {
-                                weekly_events[day][event].start = start.replace(":", "");
-                                weekly_events[day][event].stop = stop.replace(":", "");
-                                weekly_events[day][event].edited = true;
-                                weekly_events[destination].push(weekly_events[day][event]);
-
-                                weekly_events[day].splice(event, 1);
-                                source = parseInt(day);
-                                jest_git = true; // zeby wyjsc z zewnetrzej petli
-                                //takie goto
-                                break;
-                            }
-                        }
-                        if (jest_git) break;
-                    }
-
-                    check_collisions(source);
-                    check_collisions(destination);
-                    $(this).children(".bar").html(start + " - " + stop);
+                    awesome_stop(e ,ui, elem);
                 }
             });
     elem.dblclick(function(){
@@ -453,6 +460,20 @@ function make_events_awesome(event_id) {
         $("#day").val(to_edit['day']);
         $("#to_del_in_case_of_edit").val(elem.attr('id'));
     });
+    /*
+    elem.resizable({
+        handles: 'n, s',
+        grid: [0, 25],
+        containment: [$("#day0").parent().position().left + parseInt($("#time_column").css("width")),
+            $("#day0").parent().position().top,
+            $("#day0").parent().position().left + parseInt($("#day0").parent().css("width")) - parseInt($("#day6").css("width")),
+            $("#day0").parent().position().top + parseInt($("#day0").parent().css("height")) - parseInt($("#" + event_id).css("height"))
+        ],
+        stop: function (e, ui) {
+            awesome_stop(e ,ui, elem);
+        }
+    });
+    */
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -463,13 +484,19 @@ function make_events_awesome(event_id) {
 function del(id, del_to_edit){
     var day_to_reorganize = -1;
     for (var day in weekly_events){
-        for (event in weekly_events[day]){
+        for (var event in weekly_events[day]){
             if (weekly_events[day][event]['id'] == id){
                 if(del_to_edit == false){ // jezeli go usuwamy to przerzucamy do zapasowej tabeli
                     deleted_events.push(weekly_events[day][event]);
                 }
+                console.log("usuwam event z listy");
+                console.log(weekly_events[day][event]);
                 weekly_events[day].splice(event, 1);
+
+                console.log(weekly_events);
+                console.log(">>>>>> DAY"  + day);
                 day_to_reorganize = day;
+                console.log(">>>>>> DAY to reorgz"  + day_to_reorganize);
 
                 break;
             }
@@ -479,6 +506,8 @@ function del(id, del_to_edit){
     }
     hide_form();
     $("#"+id).remove();
+    if(day_to_reorganize == -1) // nie wiem o co chodzi
+        return;
     check_collisions(day_to_reorganize);
 }
 
@@ -598,7 +627,10 @@ function get_collisions_list(day) {
 
 function check_collisions(day) {
     var collision_list = get_collisions_list(day);
+    console.log("DAY: "+ day);
     var list = weekly_events[day];
+    console.log("list :");
+    console.log(list);
     var cols_no = 1;
     // liczymy na ile trzeba podzielic kolumne
     for (var event = 0; event < list.length; ++event) {

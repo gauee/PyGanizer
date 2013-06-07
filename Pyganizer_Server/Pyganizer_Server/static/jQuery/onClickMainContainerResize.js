@@ -6,8 +6,8 @@ var isCalendar;
 var widthDivA = "1150px";
 var heighDivA = "855px";
 
-var widthDivD = "200px";
-var heightDivD = "200px";
+var widthDivD = "100px";
+var heightDivD = "100px";
 
 var opacityLevel = 0.2;
 
@@ -35,7 +35,7 @@ $(document).ready(function() {
 			width : widthDivD,
 			height : heightDivD,
 			top : "300px",
-			left : "1090px",
+			left : "1190px",
 			opacity : opacityLevel
 		}, {
 			queuue : false,
@@ -54,7 +54,7 @@ $(document).ready(function() {
 			width : widthDivA,
 			height : heighDivA,
 			top : "0px",
-			left : "290px",
+			left : "190px",
 			opacity : 1
 		}, {
 			queue : false,

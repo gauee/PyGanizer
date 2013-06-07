@@ -1,0 +1,28 @@
+{% extends "skeletonSite.html" %}
+
+{% block container %}
+<div id="user_info">
+	<h3>Moje wiadomosci</h3>
+	<table>
+		<style>
+			.row{
+				color: #111111;
+				text-decoration: underline;
+				font-variant: small-caps;
+			}
+		</style>
+		<tr class="row">
+			<td style="min-width: 200px">Napisał:</td><td>Tytuł wiadomości:</td>
+		</tr>
+		<tr>
+			<td> {{msg.fromUser}} </td> <td> {{msg.msgId.msgHeader}} </td>
+		</tr>
+		<tr class="row">
+			<td>Treść</td><td></td>
+		</tr>
+		<tr>
+			<td> {{msg.msgBody}} </td>
+		</tr>
+	</table>
+</div>
+{% endblock %}

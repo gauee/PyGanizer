@@ -27,6 +27,14 @@ class MsgManager(models.Manager):
         return extendMsg
 
     def create_msg_to_friend(self, fromUser, toUser, msgHeader, msgBody):
+        print("ToUser=")
+        print(toUser.id)
+        print(toUser.extraInfo)
+        print("fromUser=")
+        print(fromUser.extraInfo)
+        print(fromUser.id)
+        print(fromUser.userAuth_id)
+        
         baseMsg = self.create_base_msg(toUser, msgHeader)
         extendMsg = MsgFromFriend()
         extendMsg.msgId = baseMsg
@@ -58,8 +66,10 @@ class MsgManager(models.Manager):
     def get_all_messages(self, user):
         print(user)
         print(user.id)
-        return MsgFromFriend.objects.filter(msgId__userId=user)
-
+        return MsgFromFriend.objects.filter(msgId__userId_id=user.id)
+    
+    def get_message_from_friend_by_id(self,id):
+        return MsgFromFriend.objects.get(id=id)
 
 class Msg(models.Model):
     createTime = models.DateTimeField('date published')

@@ -23,7 +23,7 @@ class UserFasade(models.Manager):
         return friends
  
     def get_user_pyganizer_by_username(self,username):
-        user = UserPyGanizer.objects.get(userAuth__username='gauee')
+        user = UserPyGanizer.objects.get(userAuth__username=username)
         return user
     
 class UserFasadeInstance(models.Model):

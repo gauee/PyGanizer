@@ -23,16 +23,17 @@ def add_event(request):
 
 def send_msg_to_friend_form(request):
     friends = UserFasadeInstance.objects.get_user_friends(request.user)
-    print(friends)
+
     return render_to_response('send_msg_to_friend.html', {'friends':friends},RequestContext(request))
 
 def send_msg_to_friend(request):
-    
     toUser = request.POST.get('toUser')
     toUser = UserFasadeInstance.objects.get_user_pyganizer_by_username(toUser)
+    print("!!!@@@")
     msg_header = request.POST.get('msg_header')
     msg_body = request.POST.get('msg_body')
-    
+    print(request.user.username)
+    print(toUser)
     MsgFromFriend.objects.create_msg_to_friend(request.user.profile,toUser,msg_header,msg_body)
     
     return redirect ("/")
@@ -57,6 +58,11 @@ def add_sticky_note(request):
     return redirect("/")
     
     
+def show_message_more(request,msgId):
+    print(msgId)
+    msg = MsgFromFriend.objects.get_message_from_friend_by_id(msgId)
+    print(msg.msgBody)
+    return render_to_response('show_message_more.html', {'msg':msg},RequestContext(request))
     
     
     

@@ -176,6 +176,10 @@ footer {
 	box-shadow: 7px 7px 15px 1px #666;
 }
 
+#user_info td {
+	border: none;
+}
+
 #context_info {
 	width: 500px;
 	height: 15px;

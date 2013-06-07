@@ -117,7 +117,7 @@ def add_user_to_friend(request):
 
     user.friends.add(friendToAdd)
     friendToAdd.friends.add(user)
-    context_info = "Dodano użytkownika " + friendToAdd.profile.userAuth.username + " do znajomych."
+    context_info = "Dodano do znajomych"
     
     return redirect("/show_friends",{'context_info':context_info})
         

@@ -1,4 +1,5 @@
 <div id="calendar" class="container">
+<input type="button" value="KURWAAAA" onclick="sayhello();">
 <input type="button" value="Nowy event" onclick="show_form()">
 <input type="button" value="Zapisz" onclick="save()">
 <div id="new_event" hidden="hidden">
@@ -54,9 +55,24 @@
         <td class="day_col can_has_events" id="day6"></td>
     </tr>
 </table>
-<table id="montly_calendar" hidden="hidden">asdgargher</table>
-
+<table id="montly_calendar" hidden="hidden"></table>
 <script>
+function sayhello(){
+    $.post("say_hello/",
+            {csrfmiddlewaretoken:'{{csrf_token}}'},
+            function(response){
+                alert("Odpowiedz z serwera:" + response);
+                if(response == "GIOCIOR KURWA!"){
+                    deleted_events = []
+                    for(var day in weekly_events){
+                        for(var event in weekly_events[day]){
+                            weekly_events[day][event].edited = false;
+                        }
+                    }
+                }
+            })
+    }
+
 // RZECZY Z BACKENDU:
 //  tutaj bedzie SELECT MAX(id) FROM EVENTS;
 // wykorzystywany do dodawania nowych eventow

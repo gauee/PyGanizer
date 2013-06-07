@@ -5,11 +5,10 @@ from django.conf.global_settings import FIXTURE_DIRS
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-PWD=os.path.dirname(os.path.realpath(__file__))
-
+PWD = os.path.dirname(os.path.realpath(__file__))
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+# ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -17,12 +16,12 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'pyganizerdb',                      # Or path to database file if using sqlite3.
+        'NAME': 'pyganizerdb', # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
         'PASSWORD': 'password',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '', # Set to empty string for default.
     }
 }
 
@@ -77,7 +76,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PWD,"static"),
+    os.path.join(PWD, "static"),
 )
 
 # List of finder classes that know how to find static files in
@@ -85,7 +84,8 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+
 )
 
 # Make this unique, and don't share it with anybody.
@@ -95,7 +95,7 @@ SECRET_KEY = '6v_0j+noqf-v4=$(bwzre#9ln+h14x=03n-rkihyp3lnn%3c1#'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -113,11 +113,10 @@ ROOT_URLCONF = 'Pyganizer_Server.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'Pyganizer_Server.wsgi.application'
 
-
 TEMPLATE_DIRS = (
-    os.path.join(PWD,"templates"),
-    os.path.join(PWD,"../user_management/templates"),
-    os.path.join(PWD,"../message_management/templates"),
+    os.path.join(PWD, "templates"),
+    os.path.join(PWD, "../user_management/templates"),
+    os.path.join(PWD, "../message_management/templates"),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -174,3 +173,13 @@ AUTH_PROFILE_MODULE = 'user_management.UserPyganizer'
 FIXTURE_DIRS = {
     'user_management/fixtures/'
 }
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages'
+)

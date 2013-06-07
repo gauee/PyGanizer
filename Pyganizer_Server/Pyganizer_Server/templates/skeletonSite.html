@@ -6,7 +6,6 @@
 		<script src="{{ STATIC_URL }}jQuery/onClickMainContainerResize.js"></script>
 		<script src="{{ STATIC_URL }}jQuery/context_info.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
     </head>
 	<body>
 
@@ -18,16 +17,13 @@
 				Kontekst: {{ context_info }}
 			</div>
 
-			{% if user.is_authenticated %}
+            {% if user.is_authenticated %}
 			{% include "navigation.html" %}
 			{% endif%}
 
 			{% block container %}
 			{% endblock %}
 		</div>
-		<footer>
-			&copy; Copyright  by PyGanizerTeam
-		</footer>
 
 	</body>
 </html>

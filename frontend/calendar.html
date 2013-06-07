@@ -61,7 +61,7 @@
 <div class="container">
 <input type="button" value="Nowy event" onclick="show_form()">
 <input type="button" value="Zapisz" onclick="save()">
-<div id="new_event" hidden="hidden">
+<div id="new_event" style="display: none;">
     <label for="start">Start</label>
     <select type="text" id="start"></select>
     <br>
@@ -83,7 +83,8 @@
     <label for="description">Opis</label>
     <input type="text" id="description">
     <br>
-    <input type="button" value="Dodaj" id="add_event">
+    <input type="button" value="Dodaj" id="add_event" onclick="Dajaxice.pyganizer_calendar.views.sayhello(my_js_callback);"
+            >
     <input type="button" value="Anuluj" id="cancel" onclick="hide_form()" hidden="hidden">
     <input type="button" value="Usun" id="delete_event" hidden="hidden">
     <input type="hidden" id="to_del_in_case_of_edit" value="nothing">
@@ -121,6 +122,10 @@
 <script src="weekly.js"></script>
 <script src="monthly.js"></script>
 <script>
+function my_js_callback(data){
+    alert("aa");
+    alert(data.message);
+}
 // RZECZY Z BACKENDU:
 //  tutaj bedzie SELECT MAX(id) FROM EVENTS;
 // wykorzystywany do dodawania nowych eventow

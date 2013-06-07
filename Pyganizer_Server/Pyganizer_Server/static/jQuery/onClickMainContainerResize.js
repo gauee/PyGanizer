@@ -29,6 +29,8 @@ $(document).ready(function() {
 			queue : false,
 			duration : 1000
 		});
+        $('#calendar').children().fadeIn();
+        $("#new_event").css("display", "none");
 		$('#todo_board').animate({
 			width : widthDivD,
 			height : heightDivD,
@@ -58,7 +60,9 @@ $(document).ready(function() {
 			queue : false,
 			duration : 1000
 		});
-		$('#calendar').animate({
+        $('#todo_board').children().fadeIn();
+        $('#calendar').children().fadeOut();
+        $('#calendar').animate({
 			width : widthDivD,
 			height : heightDivD,
 			top : "300px",

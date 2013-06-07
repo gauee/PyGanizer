@@ -1,0 +1,83 @@
+.event{
+    background-color: #a6f2ff;
+    position: absolute;
+    border: 1px solid black;
+}
+.container{
+	background:#fffc00;
+	width:1013px;
+	height:auto;
+	border-radius:20px;
+//	overflow-x:hidden;
+//	overflow-y:scroll;
+}
+#weekly_calendar{
+	display:-moz-inline-box;
+}
+
+thead tr td{
+    border: 0;
+    margin: 0;
+	text-align:center;
+	border: 0px solid black !important;
+}
+tbody tr td {
+    margin: 0;
+}
+
+#time_column{
+    width: 68px;
+	margin:0;
+	padding:0;
+	text-align:center;
+}
+
+.day_col{
+    width: 128px;
+	border-left: 1px solid black;
+}
+.last_day_col{
+    border-right: 1px solid black;
+}
+
+
+.can_has_events {
+}
+
+#days_table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.time_div{
+    height: 20px;
+	font-size: 16px;
+}
+
+#wall{
+    width: 100%;
+    height: 100%;
+    background-color: brown;
+}
+
+.note{
+    width: 100px;
+    height: 100px;
+}
+
+#note1{
+    background-color: green;
+}
+#note2{
+    background-color: red;
+}
+#note3{
+    background-color: pink;
+}
+#note4{
+    background-color: yellow;
+}
+
+
+#new_event { background-color: red; position:absolute; top: 100px; left: 100px; z-index: 1000;}

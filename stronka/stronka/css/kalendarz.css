@@ -1,0 +1,70 @@
+a{
+	color:black;
+	text-decoration:none;
+	cursor:pointer;
+}
+
+div .link {
+	color:black;
+	text-decoration:none;
+}
+div .link:hover {
+	color:red;
+	text-decoration:none;
+}
+area{
+	cursor:pointer;
+}
+
+#kalendarz_rok{
+	text-align:center;
+}
+.kalendarz_wiersz_miesiace{
+	width:834px;
+	margin-top:13px;
+}
+.kalendarz_wiersz_miesiace.first{
+	margin-top:0px !important;
+}
+.kalendarz_miesiac{
+	width:186px;
+	margin-right:9px;
+	height:168px;
+	float:left;
+	padding-left:15px;
+	padding-top:5px;
+}
+.kalendarz_miesiac.last{
+	margin-right:0px !important;
+}
+.kalendarz_miesiac_nazwa_miesiaca{
+	width:120px;
+	font-size:20px;
+}
+.kalendarz_miesiac table{
+	margin-left:16px;
+	margin-top:9px;
+}
+.kalendarz_miesiac table tr td{
+	margin:0;
+	font-size:14px;
+	padding-top:0px;
+	padding-bottom:0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.clear{
+	clear:both;
+}

@@ -1,0 +1,72 @@
+.event{
+    background-color: white;
+    position: absolute;
+    border: 1px solid black;
+}
+
+td {
+    border: 1px solid black;
+    margin: 0;
+}
+.nazwy_dni{
+    border: 0px solid black;
+    margin: 0;
+	text-align:center;
+}
+#time_column{
+	border: 0px solid black;
+    width: 7%;
+	text-align:center;
+}
+.container{
+	background:#fffc00;
+	float:left;
+}
+.day_col{
+    width: 150px;
+}
+
+.can_has_events {
+	border: 0px;
+    border-left: solid black 1px;
+}
+.last_can_has_events {
+    border-right: solid black 1px;
+}
+
+#days_table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.time_div{
+    height: 25px;
+}
+
+#wall{
+    width: 100%;
+    height: 100%;
+    background-color: brown;
+}
+
+.note{
+    width: 100px;
+    height: 100px;
+}
+
+#note1{
+    background-color: green;
+}
+#note2{
+    background-color: red;
+}
+#note3{
+    background-color: pink;
+}
+#note4{
+    background-color: yellow;
+}
+
+
+#new_event { background-color: red; position:absolute; top: 100px; left: 100px; z-index: 1000;}

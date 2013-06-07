@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd47cb42-18f4-4277-b452-6aaaeba580b5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/templates/calendar.html" afterPath="$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/templates/calendar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/calendar.html" afterPath="$PROJECT_DIR$/frontend/calendar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/static/jQuery/onClickMainContainerResize.js" afterPath="$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/static/jQuery/onClickMainContainerResize.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/settings.py" afterPath="$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/templates/skeletonSite.html" afterPath="$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/templates/skeletonSite.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/urls.py" afterPath="$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pyganizer_Server/pyganizer_calendar/views.py" afterPath="$PROJECT_DIR$/Pyganizer_Server/pyganizer_calendar/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PyGanizer.iws" />
@@ -50,7 +43,7 @@
       <file leaf-file-name="settings.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="0" selection-start="199" selection-end="199" vertical-scroll-proportion="0.19056262">
+            <state line="15" column="13" selection-start="289" selection-end="289" vertical-scroll-proportion="0.38112524">
               <folding />
             </state>
           </provider>
@@ -652,7 +645,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Pyganizer_Server/Pyganizer_Server/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="199" selection-end="199" vertical-scroll-proportion="0.19056262">
+        <state line="15" column="13" selection-start="289" selection-end="289" vertical-scroll-proportion="0.38112524">
           <folding />
         </state>
       </provider>

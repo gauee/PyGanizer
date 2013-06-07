@@ -32,7 +32,8 @@ urlpatterns = patterns('',
                        url(r'^add_sticky_note/$', 'message_management.views.add_sticky_note', name='add_sticky_note'),
                        url(r'^add_sticky_note_form/$', 'message_management.views.add_sticky_note_form',
                            name='add_sticky_note_form'),
-
+                       
+                       url(r'^show_message_more/(?P<msgId>\d{1,3})/$', 'message_management.views.show_message_more', name='show_message_more'),
                        url(r'^insert_label/$', 'user_management.views.insert_label', name='insert_label'),
                        # url(r'^Pyganizer_Server/', include('Pyganizer_Server.foo.urls')),
 

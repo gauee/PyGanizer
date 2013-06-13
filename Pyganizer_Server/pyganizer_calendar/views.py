@@ -19,9 +19,9 @@ def sayhello(request):
     monday = today + timedelta(days=-today.weekday())
 
     for i in range(to_save_amount):
-        start = int(request.POST.get("to_save["+str(i)+"][start]").replace(":",""))
-        stop = int(request.POST.get("to_save["+str(i)+"][stop]").replace(":",""))
-        day = int(request.POST.get("to_save["+str(i)+"][day]"))
+        start = int(request.POST.get("to_save[" + str(i) + "][start]").replace(":", ""))
+        stop = int(request.POST.get("to_save[" + str(i) + "][stop]").replace(":", ""))
+        day = int(request.POST.get("to_save[" + str(i) + "][day]"))
 
         #start_m = start[-2:]
         #start_h = start[:len(start_m)-1]
@@ -35,24 +35,24 @@ def sayhello(request):
         print "EEEELELELELELELEL"
         print start
         print stop
-        start_h = start/100
-        start_m = start - 100*start_h
-        stop_h = stop/100
-        stop_m = stop - 100*stop_h
+        start_h = start / 100
+        start_m = start - 100 * start_h
+        stop_h = stop / 100
+        stop_m = stop - 100 * stop_h
 
-        day_to_insert = datetime(day=monday.day, hour=0, minute=0, month=monday.month, year=monday.year)\
+        day_to_insert = datetime(day=monday.day, hour=0, minute=0, month=monday.month, year=monday.year) \
                         + timedelta(days=day)
         print "YOYOYOYOYOYOYOYOYO"
         print day_to_insert + timedelta(hours=start_h, minutes=start_m),
         print day_to_insert + timedelta(hours=stop_h, minutes=stop_m),
         try:
-            event = Event.objects.all().get(id=int(request.POST.get("to_save["+str(i)+"][id]")))
+            event = Event.objects.all().get(id=int(request.POST.get("to_save[" + str(i) + "][id]")))
             print "JEST JUZ TAKI EVENT!!!!!"
             print event
-            event.start=day_to_insert + timedelta(hours=start_h+2, minutes=start_m)
-            event.end=day_to_insert + timedelta(hours=stop_h+2, minutes=stop_m)
+            event.start = day_to_insert + timedelta(hours=start_h + 2, minutes=start_m)
+            event.end = day_to_insert + timedelta(hours=stop_h + 2, minutes=stop_m)
             print event.msgId.msgHeader
-            event.msgId.msgHeader=request.POST.get("to_save["+str(i)+"][description]", False)
+            event.msgId.msgHeader = request.POST.get("to_save[" + str(i) + "][description]", False)
             print event
             event.save()
         except ObjectDoesNotExist:
@@ -60,19 +60,19 @@ def sayhello(request):
             e = Event.objects.create_event(
                 None,
                 user,
-                request.POST.get("to_save["+str(i)+"][description]", False),
-                day_to_insert + timedelta(hours=start_h+2, minutes=start_m),
-                day_to_insert + timedelta(hours=stop_h+2, minutes=stop_m),
+                request.POST.get("to_save[" + str(i) + "][description]", False),
+                day_to_insert + timedelta(hours=start_h + 2, minutes=start_m),
+                day_to_insert + timedelta(hours=stop_h + 2, minutes=stop_m),
                 1
             )
             e.save()
 
 
-        #return HttpResponse(dumps({'message': 'Hello World'}))
+            #return HttpResponse(dumps({'message': 'Hello World'}))
     for i in range(to_del_amount):
         try:
-            print request.POST.get("to_delete["+str(i)+"][id]")
-            event = Event.objects.all().get(id=int(request.POST.get("to_delete["+str(i)+"][id]")))
+            print request.POST.get("to_delete[" + str(i) + "][id]")
+            event = Event.objects.all().get(id=int(request.POST.get("to_delete[" + str(i) + "][id]")))
             event.delete()
         except ObjectDoesNotExist:
             return

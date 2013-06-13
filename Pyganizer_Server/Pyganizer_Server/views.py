@@ -10,12 +10,13 @@ from message_management.models import Event, Msg
 from user_management.models import UserFasadeInstance
 from django.core.exceptions import ObjectDoesNotExist
 
+
 @login_required(login_url='/login')
 def home(request):
     state = request.user.is_authenticated()
     user = UserFasadeInstance.objects.get_user_pyganizer_by_username(str(request.user.username))
     today = datetime.today()
-    today_chuj = datetime(day=today.day, month=today.month, year = today.year, hour=0, minute=0)
+    today_chuj = datetime(day=today.day, month=today.month, year=today.year, hour=0, minute=0)
     monday = today_chuj + timedelta(days=-today.weekday())
     sunday = monday + timedelta(days=7)
     print monday, sunday
@@ -29,6 +30,6 @@ def home(request):
     except ObjectDoesNotExist:
         max_id = 1
     return render_to_response('home.html',
-                              {'state': state, 'max_id':max_id, 'login': request.user.username, 'events': events},
+                              {'state': state, 'max_id': max_id, 'login': request.user.username, 'events': events},
                               RequestContext(request))
 

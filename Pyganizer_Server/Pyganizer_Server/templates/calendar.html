@@ -91,18 +91,20 @@ var added_or_edited_events = [];
 {% for event in events %}
     var start = "{{event.0.start.hour}}{{event.0.start.minute}}";
     var stop = "{{event.0.end.hour}}{{event.0.end.minute}}";
-    if (start.length == 2) start = start + "0"
-    if (stop.length == 2) stop = stop + "0"
+    if ('{{event.0.start.minute}}'.length == 1) start = start + "0";
+    if ('{{event.0.stop.minute}}'.length == 1) stop = stop + "0";
+
     //alert(start);
     weekly_events['{{event.1}}'].push(
         {
         id: parseInt("{{event.0.id}}"),
         description: "{{event.0.msgId.msgHeader}}",
-        start: parseInt(start),
-        stop: parseInt(stop),
+        start: start,
+        stop: stop,
         edited: false
         }
     );
+    console.log(weekly_events);
 {% endfor %}
 
 function save() {
@@ -395,6 +397,8 @@ function make_events_awesome(event_id) {
 
             check_collisions(source);
             check_collisions(destination);
+            for(var i =0;i<8;++i)
+                check_collisions(i);
             $(this).children(".bar").html(start + " - " + stop);
         }
     });

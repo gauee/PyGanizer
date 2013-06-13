@@ -1,5 +1,5 @@
+
 <div id="calendar" class="container">
-<!-- <input type="button" value="KURWAAAA" onclick="sayhello();"> -->
 <input type="button" value="Nowy event" onclick="show_form()">
 <input type="button" value="Zapisz" onclick="save()">
 <div id="new_event" hidden="hidden">
@@ -25,7 +25,7 @@
     <input type="text" id="description">
     <br>
     <input type="button" value="Dodaj" id="add_event">
-    <input type="button" value="Anuluj" id="cancel" onclick="hide_form()" hidden="hidden">
+    <input type="button" value="Anuluj" id="cancel" onclick="hide_form()">
     <input type="button" value="Usun" id="delete_event" hidden="hidden">
     <input type="hidden" id="to_del_in_case_of_edit" value="nothing">
 </div>
@@ -57,46 +57,17 @@
 </table>
 <table id="montly_calendar" hidden="hidden"></table>
 <script>
-function sayhello(){
-    $.post("say_hello/",
-            {csrfmiddlewaretoken:'{{csrf_token}}'},
-            function(response){
-                alert("Odpowiedz z serwera:" + response);
-                if(response == "GIOCIOR KURWA!"){
-                    deleted_events = []
-                    for(var day in weekly_events){
-                        for(var event in weekly_events[day]){
-                            weekly_events[day][event].edited = false;
-                        }
-                    }
-                }
-            })
-    }
-
 // RZECZY Z BACKENDU:
 //  tutaj bedzie SELECT MAX(id) FROM EVENTS;
 // wykorzystywany do dodawania nowych eventow
-var event_counter = 100;
+var event_counter = parseInt("{{ max_id }}");
 
 // lista eventow na dany tydzien
 // godziny chcialbm dostac w takim formacie:
 // 1415, 945, 1000
 weekly_events = [
     /* PON*/
-    [{
-        id: 0,
-        description: "0 Event",
-        start: "1000",
-        stop: "1300",
-        edited: false
-    }, {
-        id: 1,
-        description: "1 Event",
-        start: "1300",
-        stop: "1415",
-        edited: false
-    }
-    ],
+    [],
     /* WT */
     [],
     /* SR */
@@ -110,13 +81,29 @@ weekly_events = [
     /* NDZ */
     []
 ];
-
 // CHYBA TYLE Z BACKENDU
 
 // PO ZAPISIE AJAXEM
 // do backendu idzie:
 var deleted_events = [];
 var added_or_edited_events = [];
+
+{% for event in events %}
+    var start = "{{event.0.start.hour}}{{event.0.start.minute}}";
+    var stop = "{{event.0.end.hour}}{{event.0.end.minute}}";
+    if (start.length == 2) start = start + "0"
+    if (stop.length == 2) stop = stop + "0"
+    //alert(start);
+    weekly_events['{{event.1}}'].push(
+        {
+        id: parseInt("{{event.0.id}}"),
+        description: "{{event.0.msgId.msgHeader}}",
+        start: parseInt(start),
+        stop: parseInt(stop),
+        edited: false
+        }
+    );
+{% endfor %}
 
 function save() {
     // na backendzie potrzebne bedzie:
@@ -129,7 +116,9 @@ function save() {
     for (var day in weekly_events) {
         for (var event in weekly_events[day]) {
             if (weekly_events[day][event].edited == true) {
-                to_save.push(weekly_events[day][event]);
+                var ev = weekly_events[day][event];
+                ev.day = day;
+                to_save.push(ev);
             }
         }
     }
@@ -141,39 +130,40 @@ function save() {
     console.log(to_save);
     console.log("USUWAM: ");
     console.log(deleted_events);
-    // ajax z jquery, ale trzeba to bedzie przerobic na jakas biblioteke dla django
-    /*
-     $.post("adres_strony",
-     {to_save: to_save,
-     to_delete: deleted_events},
-     function(response){
-     alert("Odpowiedz z serwera:" + response);
-     if(response == "GIOCIOR KURWA!"){
-     deleted_events = []
-     for(var day in weekly_events){
-     for(var event in weekly_events[day]){
-     weekly_events[day][event].edited = false;
-     }
-     }
-     }
-     else
-     {
-     alert("Cos nie poszlo dobrze");
-     }
-     }
-     )
-     */
+
+
+    $.post("say_hello/",
+            {
+                csrfmiddlewaretoken:'{{csrf_token}}',
+                to_save_amount: to_save.length,
+                to_save: to_save,
+                to_delete_amount: deleted_events.length,
+                to_delete: deleted_events
+            },
+            function(response){
+                alert("Odpowiedz z serwera:" + response);
+                if(response == "OK!"){
+                    deleted_events = []
+                    for(var day in weekly_events){
+                        for(var event in weekly_events[day]){
+                            weekly_events[day][event].edited = false;
+                        }
+                    }
+                }
+            });
 }
 
 $("#new_event").draggable();
 
 function show_form() {
     $("#new_event").removeAttr("hidden");
+    $("#new_event").show()
 }
 
 function hide_form() {
 
     $("#new_event").attr("hidden", "hidden");
+    $("#new_event").hide();
     $("#start").val("800");
     $("#stop").val("800");
     $("#description").val("");
@@ -311,7 +301,7 @@ function get_time(top) {
     var tops = ""
     console.log("SZUKAM " +top);
     for (var elem in allElements) {
-        tops += allElements[elem].top + " "
+        tops += allElements[elem].top + " ";
         //console.log(allElements[elem].top);
         if (top >= allElements[elem].top - 3 && top <= allElements[elem].top + 3) // && top <= allElements[elem].top + timediv_height)
             return allElements[elem].id;
@@ -509,11 +499,11 @@ function add_event(day_selector, event) {
             .css("height", bottom - up)
             .css("width", $(day_selector).css("width"));
 
-    event.start = prepare_date(event.start).replace(":", "");
-    event.stop = prepare_date(event.stop).replace(":", "");
-
+    event.start = prepare_date(event.start)//.replace(":", "");
+    event.stop = prepare_date(event.stop)//.replace(":", "");
     make_events_awesome(event['id']);
-
+    for(var i =0;i<8;++i)
+        check_collisions(i);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -579,6 +569,7 @@ function get_collisions_list(day) {
 function check_collisions(day) {
     var collision_list = get_collisions_list(day);
     var list = weekly_events[day];
+    if(!list || list.length == 1 || list.length == 0) return;
     var cols_no = 1;
     // liczymy na ile trzeba podzielic kolumne
     for (var event = 0; event < list.length; ++event) {

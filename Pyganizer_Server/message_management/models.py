@@ -15,9 +15,11 @@ class MsgManager(models.Manager):
 
         return baseMsg
 
-    def create_event(self, user, msgHeader, start, end, category):
+    def create_event(self, event_id, user, msgHeader, start, end, category):
         baseMsg = self.create_base_msg(user, msgHeader)
         extendMsg = Event()
+        if event_id:
+            extendMsg.id = event_id
         extendMsg.msgId = baseMsg
         extendMsg.start = start
         extendMsg.end = end
@@ -99,6 +101,8 @@ class Event(models.Model):
     category = models.IntegerField()
     objects = MsgManager()
 
+    def __unicode__(self):
+        return str(self.start)+" "+str(self.end)
 
 class Comment(models.Model):
     msgId = models.OneToOneField('Msg')

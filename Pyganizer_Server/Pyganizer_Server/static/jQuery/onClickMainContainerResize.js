@@ -3,8 +3,8 @@ var showToDoBoard;
 var isCalendar;
 
 /** Consts on calendar and todo_board **/
-var widthDivA = "1150px";
-var heighDivA = "855px";
+var widthDivA = "849px";
+var heighDivA = "610px";
 
 var widthDivD = "100px";
 var heightDivD = "100px";
